@@ -16,25 +16,37 @@
         <vm:MainViewModel />
     </Design.DataContext>
 
-        <Grid ShowGridLines="True" Name="Buttons" ColumnDefinitions="*, *, *, *" RowDefinitions="*,*, *, *, *">
-            <TextBox x:Name="Result" Grid.Row="0" Grid.ColumnSpan="4" FontSize="50"/>
+        <Grid Name="Buttons" ColumnDefinitions="*, *, *, *" RowDefinitions="*,*, *, *, *, *">
+            <TextBox x:Name="Result" HorizontalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalAlignment="Center" Text="{Binding Input}" Grid.Row="0" Grid.ColumnSpan="4" FontSize="60"/>
             <!--Add a converter to make the display's font size scale with the app size-->
-            <Button Grid.Row="1" Grid.Column="0" Classes="Number" Content="1"/>
-            <Button Grid.Row="1" Grid.Column="1" Classes="Number" Content="2"/>
-            <Button Grid.Row="1" Grid.Column="2" Classes="Number" Content="3"/>
-            <Button Grid.Row="2" Grid.Column="0" Classes="Number" Content="4"/>
-            <Button Grid.Row="2" Grid.Column="1" Classes="Number" Content="5"/>
-            <Button Grid.Row="2" Grid.Column="2" Classes="Number" Content="6"/>
-            <Button Grid.Row="3" Grid.Column="0" Classes="Number" Content="7"/>
-            <Button Grid.Row="3" Grid.Column="1" Classes="Number" Content="8"/>
-            <Button Grid.Row="3" Grid.Column="2" Classes="Number" Content="9"/>
-            <Button Grid.Row="4" Grid.Column="0" Classes="Number" Content="."/>
-            <Button Grid.Row="4" Grid.Column="1" Classes="Number" Content="0"/>
-            <Button Grid.Row="4" Grid.Column="2" Classes="Number" Content="="/>
-            <Button Grid.Row="1" Grid.Column="3" Classes="Number" Content="+"/>
-            <Button Grid.Row="2" Grid.Column="3" Classes="Number" Content="-"/>
-            <Button Grid.Row="3" Grid.Column="3" Classes="Number" Content="×"/>
-            <Button Grid.Row="4" Grid.Column="3" Classes="Number" Content="÷"/>
+            <Button Grid.Row="1" Grid.Column="0" Classes="Number" Content="History"/>
+            <Button Grid.Row="1" Grid.Column="1" Classes="Number" Content="Backspace" Command="{Binding RemoveDigitCommand}"/>
+            <Button Grid.Row="1" Grid.Column="2" Classes="Number" Content="Clear" Command="{Binding ClearInputCommand}"/>
+            <Button Grid.Row="1" Grid.Column="3" Classes="Number" Content="(+/-)"/>
+
+            <Button Grid.Row="2" Grid.Column="0" Classes="Number" Content="1" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button Grid.Row="2" Grid.Column="1" Classes="Number" Content="2" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button Grid.Row="2" Grid.Column="2" Classes="Number" Content="3" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button Grid.Row="3" Grid.Column="0" Classes="Number" Content="4" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button Grid.Row="3" Grid.Column="1" Classes="Number" Content="5" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button Grid.Row="3" Grid.Column="2" Classes="Number" Content="6" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button Grid.Row="4" Grid.Column="0" Classes="Number" Content="7" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button Grid.Row="4" Grid.Column="1" Classes="Number" Content="8" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button Grid.Row="4" Grid.Column="2" Classes="Number" Content="9" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button Grid.Row="5" Grid.Column="0" Classes="Number" Content="." Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button Grid.Row="5" Grid.Column="1" Classes="Number" Content="0" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+
+            <Grid.KeyBindings>
+                <KeyBinding Gesture="Enter" Command="{Binding CalculateCommand}"/>
+                <KeyBinding Gesture="Back" Command="{Binding RemoveDigitCommand}"/>
+                <KeyBinding Gesture="Delete" Command="{Binding ClearInputCommand}"/>
+            </Grid.KeyBindings>
+
+            <Button Grid.Row="5" Grid.Column="2" Classes="Number" Content="=" Command="{Binding CalculateCommand}"/>
+            <Button Grid.Row="2" Grid.Column="3" Classes="Number" Content="+" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button Grid.Row="3" Grid.Column="3" Classes="Number" Content="-" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button Grid.Row="4" Grid.Column="3" Classes="Number" Content="×" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button Grid.Row="5" Grid.Column="3" Classes="Number" Content="÷" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
             
 
         </Grid>
