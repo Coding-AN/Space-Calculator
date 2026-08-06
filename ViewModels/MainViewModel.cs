@@ -10,7 +10,22 @@ public partial class MainViewModel : ViewModelBase
    
 }
 
-public partial class CalViewModel :ViewModelBase
+public partial class CalcViewModel :ViewModelBase
 {
-    
+    private double firstValue = 0;
+    private double secondValue = 0;
+    private bool OperationSelected = false;
+    private enum Operations
+    {
+        add,
+        subtract,
+        multiply,
+        divide
+    }
+
+    [RelayCommand]
+    public void AddDigit()
+    {
+        
+    }
 }
