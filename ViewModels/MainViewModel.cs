@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using HarfBuzzSharp;
 
 namespace CalculatorGUI.ViewModels;
 
@@ -22,9 +23,20 @@ public partial class CalcViewModel :ViewModelBase
         divide
     }
 
-    [RelayCommand]
-    public void AddDigit()
+    public double SelectedValue
     {
+        get
+        {
+            if(OperationSelected)
+            {
+                return secondValue;
+            }
+            else
+            {
+                return firstValue;
+            }
+        }
+        set;
         
     }
 }
