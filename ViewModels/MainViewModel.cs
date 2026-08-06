@@ -1,5 +1,4 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using CalculatorGUI.Models;
 using CommunityToolkit.Mvvm.Input;
 
 namespace CalculatorGUI.ViewModels;
