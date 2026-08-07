@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Data;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -13,41 +13,26 @@ public partial class MainViewModel : ViewModelBase
     [RelayCommand]
     public void Calculate()
     {
-        //Fix weird errors like 14/2 = 0.5
         try
         {
-            int operand = Input.IndexOfAny(new char[]{'+', '-', '×', '÷', '*', '/'});
-            float num1 = float.Parse(Input.Substring(0,Input.Length - operand - 1));
-            float num2 = float.Parse(Input.Substring(operand + 1));
-            switch(Input[operand])
-            {
-                case '+' :
-                    Input = (num1 + num2).ToString();
-                    break;
-                case '-':
-                    Input = (num1 - num2).ToString();
-                    break;
-                case '×':
-                case '*':
-                    Input = (num1 * num2).ToString();
-                    break;
-                case '÷':
-                case '/':
-                    Input = (num1 / num2).ToString();
-                    break;
-            }
+            string expression = Input.Replace('×', '*').Replace('÷', '/');
+            var result = new DataTable().Compute(expression, null);
+            Input = result.ToString() ?? "0";
         }
-        catch{}
+        catch
+        {
+            Input = "Error";
+        }
     }
 
     [RelayCommand]
     public void AddDigit(string content)
     {
-        //Make it work 100% of the time
-        if(content.IndexOfAny(new char[]{'+', '-', '×', '÷'}) != -1 && Input.IndexOfAny(new char[]{'+', '-', '×', '÷', '*', '/'}) != -1)
-        {
-            Calculate();
-        }
+        if(string.IsNullOrEmpty(content))
+            return;
+        if(content is "+" or "-" or "×" or "÷" && Input[^1] is '+' or '-' or '×' or '÷')
+            Input = Input[..^1];
+
         Input += content;
     }
 
@@ -55,9 +40,7 @@ public partial class MainViewModel : ViewModelBase
     public void RemoveDigit()
     {
         if(Input.Length >0)
-        {
-            Input = Input!.Substring(0,Input.Length-1);
-        }
+            Input = Input[..^1];
     }
 
     [RelayCommand]
