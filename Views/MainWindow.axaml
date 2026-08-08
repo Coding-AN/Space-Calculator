@@ -8,7 +8,8 @@
         x:DataType="vm:MainViewModel"
         Name="View"
         Icon="/Assets/avalonia-logo.ico"
-        Title="CalculatorGUI">
+        Title="CalculatorGUI"
+        >
 
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
@@ -17,9 +18,27 @@
     </Design.DataContext>
 
         <Grid Name="Buttons" ColumnDefinitions="*, *, *, *" RowDefinitions="*,*, *, *, *, *">
-            <TextBox x:Name="Result" HorizontalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalAlignment="Center" Text="{Binding Input}" TextInput="Result_TextInput" Grid.Row="0" Grid.ColumnSpan="4" FontSize="60"/>
+            <TextBox x:Name="Result" Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalAlignment="Center"
+            Text="{Binding Input}" FontSize="55"
+            BorderThickness="0" BorderBrush="Transparent" Padding="0" CaretBrush="{Binding Background, ElementName=View}" FocusAdorner="{x:Null}"
+            AttachedToVisualTree="Result_AttachedToVisualTree" LostFocus="Result_LostFocus" TextChanged="Result_TextChanged"/>
             <!--Add a converter to make the display's font size scale with the app size-->
-            <Button Grid.Row="1" Grid.Column="0" Classes="Number" Content="History"/>
+            <Button x:Name="History" Grid.Row="1" Grid.Column="0" Classes="Number" Content="{Binding buttonContent}" Command="{Binding HistoryToggleCommand}" ZIndex="2" Background="{Binding historyBackground}"/>
+            <Border x:Name="HistoryPanel" IsVisible="{Binding historyOut}" Background="Navy" Opacity="1.0" Margin="5" CornerRadius="15" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="{Binding HistoryDimension}" Grid.RowSpan="{Binding HistoryDimension}" ZIndex="1">
+                <DockPanel>
+                    <ScrollViewer HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                        <ItemsControl ItemsSource=""><!--Add an observable collection containing the history to this-->
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate ><!--Make the history list a viewmodel and bind it here as the datatype-->
+
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </DockPanel>
+            </Border>
+
+
             <Button Grid.Row="1" Grid.Column="1" Classes="Number" Content="Backspace" Command="{Binding RemoveDigitCommand}"/>
             <Button Grid.Row="1" Grid.Column="2" Classes="Number" Content="Clear" Command="{Binding ClearInputCommand}"/>
             <Button Grid.Row="1" Grid.Column="3" Classes="Number" Content="(+/-)"/>

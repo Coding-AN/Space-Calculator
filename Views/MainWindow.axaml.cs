@@ -1,4 +1,6 @@
-﻿using Avalonia.Controls;
+﻿using System.Linq;
+using Avalonia.Controls;
+using CalculatorGUI.Models;
 using CalculatorGUI.ViewModels;
 
 namespace CalculatorGUI.Views;
@@ -10,15 +12,18 @@ public partial class MainWindow : Window
         InitializeComponent();
     }
 
-    private void Result_TextInput(object? sender, Avalonia.Input.TextInputEventArgs e)
+    private void Result_LostFocus(object? sender, Avalonia.Input.FocusChangedEventArgs e)
     {
-        string text = e.Text!;
+        Result.Focus();
+    }
+    private void Result_AttachedToVisualTree(object? sender, Avalonia.VisualTreeAttachmentEventArgs e)
+    {
+        Result.Focus();
+    }
 
-        if(text == "*")
-            text = "×";
-        else if (text == "/")
-            text = "÷";
-        
-        ((MainViewModel)DataContext!).AddDigit(text);
+    private void Result_TextChanged(object? sender, TextChangedEventArgs e)
+    {
+        TextBox caretHolder = (TextBox)sender!;
+        caretHolder.CaretIndex = caretHolder.Text!.Length;
     }
 }

@@ -2,7 +2,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              x:Class="CalculatorGUI.App"
              xmlns:local="using:CalculatorGUI"
-             RequestedThemeVariant="Default">
+             RequestedThemeVariant="Dark">
              <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.DataTemplates>
@@ -11,6 +11,7 @@
 
     <Application.Styles>
         <FluentTheme />
+    <!--Add in a theme dictionary to add in support for dark, light, and space themes-->
         <Style Selector="Button.Number">
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -18,8 +19,17 @@
             <Setter Property="VerticalAlignment" Value="Stretch"/>
             <Setter Property="CornerRadius" Value="15"/>
             <Setter Property="Margin" Value="5"/>
-            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontSize" Value="35"/>
             <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" Value="Navy"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Opacity" Value="1.0"/>
+            <Setter Property="Focusable" Value="False"/>
         </Style>
+
+        <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
+            <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+    </Style>
     </Application.Styles>
 </Application>

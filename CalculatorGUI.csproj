@@ -5,6 +5,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <AvaloniaCheckDiagnosticsConflict>false</AvaloniaCheckDiagnosticsConflict>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,5 +23,6 @@
       <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
     </PackageReference>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+    <PackageReference Include="ProDiagnostics" Version="12.1.0" />
   </ItemGroup>
 </Project>
