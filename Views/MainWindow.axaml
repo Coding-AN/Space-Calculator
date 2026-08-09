@@ -11,18 +11,23 @@
         Title="CalculatorGUI"
         >
 
+    <Window.KeyBindings>
+        <KeyBinding Gesture="Enter" Command="{Binding CalculateCommand}"/>
+        <KeyBinding Gesture="OemPlus" Command="{Binding CalculateCommand}"/>
+    </Window.KeyBindings>
+
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainViewModel />
     </Design.DataContext>
 
+        <!--Add a converter to make the display's font size scale with the app size-->
         <Grid Name="Buttons" ColumnDefinitions="*, *, *, *" RowDefinitions="*,*, *, *, *, *">
             <TextBox x:Name="Result" Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalAlignment="Center"
-            Text="{Binding Input}" FontSize="55"
+            Text="{Binding Input, Mode=OneWay}" FontSize="55" IsReadOnly="True"
             BorderThickness="0" BorderBrush="Transparent" Padding="0" CaretBrush="{Binding Background, ElementName=View}" FocusAdorner="{x:Null}"
-            AttachedToVisualTree="Result_AttachedToVisualTree" LostFocus="Result_LostFocus" TextChanged="Result_TextChanged"/>
-            <!--Add a converter to make the display's font size scale with the app size-->
+            Focusable="False"/>
             <Button x:Name="History" Grid.Row="1" Grid.Column="0" Classes="Number" Content="{Binding buttonContent}" Command="{Binding HistoryToggleCommand}" ZIndex="2" Background="{Binding HistoryButtonBackground}"/>
             <Border x:Name="HistoryPanel" IsVisible="{Binding historyOut}" Background="Navy" Margin="5" CornerRadius="15" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="{Binding HistoryDimension}" Grid.RowSpan="{Binding HistoryDimension}" ZIndex="1">
                 <DockPanel>
@@ -39,35 +44,27 @@
             </Border>
 
 
-            <Button Grid.Row="1" Grid.Column="1" Classes="Number" Content="Backspace" Command="{Binding RemoveDigitCommand}"/>
-            <Button Grid.Row="1" Grid.Column="2" Classes="Number" Content="Clear" Command="{Binding ClearInputCommand}"/>
+            <Button HotKey="Back" Grid.Row="1" Grid.Column="1" Classes="Number" Content="Backspace" Command="{Binding RemoveDigitCommand}"/>
+            <Button HotKey="Delete" Grid.Row="1" Grid.Column="2" Classes="Number" Content="Clear" Command="{Binding ClearInputCommand}"/>
             <Button Grid.Row="1" Grid.Column="3" Classes="Number" Content="(+/-)"/>
 
-            <Button Grid.Row="2" Grid.Column="0" Classes="Number" Content="1" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
-            <Button Grid.Row="2" Grid.Column="1" Classes="Number" Content="2" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
-            <Button Grid.Row="2" Grid.Column="2" Classes="Number" Content="3" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
-            <Button Grid.Row="3" Grid.Column="0" Classes="Number" Content="4" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
-            <Button Grid.Row="3" Grid.Column="1" Classes="Number" Content="5" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
-            <Button Grid.Row="3" Grid.Column="2" Classes="Number" Content="6" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
-            <Button Grid.Row="4" Grid.Column="0" Classes="Number" Content="7" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
-            <Button Grid.Row="4" Grid.Column="1" Classes="Number" Content="8" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
-            <Button Grid.Row="4" Grid.Column="2" Classes="Number" Content="9" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
-            <Button Grid.Row="5" Grid.Column="0" Classes="Number" Content="." Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
-            <Button Grid.Row="5" Grid.Column="1" Classes="Number" Content="0" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
-
-            <Grid.KeyBindings>
-                <KeyBinding Gesture="Enter" Command="{Binding CalculateCommand}"/>
-                <KeyBinding Gesture="Back" Command="{Binding RemoveDigitCommand}"/>
-                <KeyBinding Gesture="Delete" Command="{Binding ClearInputCommand}"/>
-            </Grid.KeyBindings>
+            <Button HotKey="D1" Grid.Row="2" Grid.Column="0" Classes="Number" Content="1" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button HotKey="D2" Grid.Row="2" Grid.Column="1" Classes="Number" Content="2" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button HotKey="D3" Grid.Row="2" Grid.Column="2" Classes="Number" Content="3" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button HotKey="D4" Grid.Row="3" Grid.Column="0" Classes="Number" Content="4" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button HotKey="D5" Grid.Row="3" Grid.Column="1" Classes="Number" Content="5" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button HotKey="D6" Grid.Row="3" Grid.Column="2" Classes="Number" Content="6" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button HotKey="D7" Grid.Row="4" Grid.Column="0" Classes="Number" Content="7" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button HotKey="D8" Grid.Row="4" Grid.Column="1" Classes="Number" Content="8" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button HotKey="D9" Grid.Row="4" Grid.Column="2" Classes="Number" Content="9" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button HotKey="OemPeriod" Grid.Row="5" Grid.Column="0" Classes="Number" Content="." Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button HotKey="D0" Grid.Row="5" Grid.Column="1" Classes="Number" Content="0" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
 
             <Button Grid.Row="5" Grid.Column="2" Classes="Number" Content="=" Command="{Binding CalculateCommand}"/>
-            <Button Grid.Row="2" Grid.Column="3" Classes="Number" Content="+" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
-            <Button Grid.Row="3" Grid.Column="3" Classes="Number" Content="-" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
-            <Button Grid.Row="4" Grid.Column="3" Classes="Number" Content="×" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
-            <Button Grid.Row="5" Grid.Column="3" Classes="Number" Content="÷" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
-            
-
+            <Button HotKey="Shift + OemPlus" Grid.Row="2" Grid.Column="3" Classes="Number" Content="+" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button HotKey="OemMinus" Grid.Row="3" Grid.Column="3" Classes="Number" Content="-" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button HotKey="Shift + D8" Grid.Row="4" Grid.Column="3" Classes="Number" Content="×" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button HotKey="OemQuestion" Grid.Row="5" Grid.Column="3" Classes="Number" Content="÷" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
         </Grid>
 
 </Window>

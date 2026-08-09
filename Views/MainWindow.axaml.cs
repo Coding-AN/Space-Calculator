@@ -11,19 +11,4 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
     }
-
-    private void Result_LostFocus(object? sender, Avalonia.Input.FocusChangedEventArgs e)
-    {
-        Result.Focus();
-    }
-    private void Result_AttachedToVisualTree(object? sender, Avalonia.VisualTreeAttachmentEventArgs e)
-    {
-        Result.Focus();
-    }
-
-    private void Result_TextChanged(object? sender, TextChangedEventArgs e)
-    {
-        TextBox caretHolder = (TextBox)sender!;
-        caretHolder.CaretIndex = caretHolder.Text!.Length;
-    }
 }

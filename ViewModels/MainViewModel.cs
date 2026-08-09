@@ -1,20 +1,12 @@
-﻿using System.Collections.ObjectModel;
-using System.Data;
-using System.Reflection;
-using Avalonia.Controls;
-using Avalonia.Input;
-using Avalonia.Media;
-using CalculatorGUI.Models;
+﻿using CalculatorGUI.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using static CalculatorGUI.Models.Help;
 
 namespace CalculatorGUI.ViewModels;
 
-//Add A Theme Toggle, Calculation History Storage, Unit Conversions, and Keyboard Support
+//Add A Theme Toggle, Calculation History Storage, and Unit Conversions
 public partial class MainViewModel : ViewModelBase
 {
-    //Make everything update properly
     private readonly CalculatorEngine engine = new();
     [ObservableProperty]
     public partial string Input{get; set;} = "";
