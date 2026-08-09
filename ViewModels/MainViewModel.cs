@@ -4,7 +4,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace CalculatorGUI.ViewModels;
 
-//Add A Theme Toggle, Calculation History Storage, and Unit Conversions
+//Add A Theme Toggle, Calculation History Storage, Negative Numbers, and Unit Conversions
 public partial class MainViewModel : ViewModelBase
 {
     private readonly CalculatorEngine engine = new();
@@ -33,6 +33,12 @@ public partial class MainViewModel : ViewModelBase
     public void ClearInput()
     {
         engine.ClearInput();
+        Input = engine.Input;
+    }
+    [RelayCommand]
+    public void MakeNegative()
+    {
+        engine.MakeNegative();
         Input = engine.Input;
     }
 

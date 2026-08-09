@@ -19,24 +19,39 @@ public class CalculatorEngine
     }
     public void AddDigit(string content)
     {
-        if(string.IsNullOrEmpty(Input) && content.IsOperand())
+        if(Input.Contains("Error") || Input.Contains("NaN"))
+            ClearInput();
+        if(string.IsNullOrEmpty(Input) && content is "+" or "×" or "÷")
             return;
-        
+
         if(content.Equals("."))
         {
             if(string.IsNullOrEmpty(Input) || Input[^1].IsOperand())
                 Input += "0";
         }
 
-        if(content.IsOperand() && Input[^1].IsOperand())
+        if(content.Equals("-") && string.IsNullOrEmpty(Input))
+        {
+            Input += "-";
+            return;
+        }
+        else if(content.IsOperand() && Input[^1].IsOperand())
             Input = Input[..^1];
 
         Input += content;
     }
     public void RemoveDigit()
     {
+        if(Input.Contains("Error") || Input.Contains("NaN"))
+            ClearInput();
+
         if(Input.Length > 0)
             Input = Input[..^1];
+    }
+    public void MakeNegative()
+    {
+        if(!string.IsNullOrEmpty(Input) && Input[^1] != '0')
+            Input+="×(-1)";
     }
     public void ClearInput()
     {
