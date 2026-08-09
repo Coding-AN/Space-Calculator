@@ -23,8 +23,8 @@
             BorderThickness="0" BorderBrush="Transparent" Padding="0" CaretBrush="{Binding Background, ElementName=View}" FocusAdorner="{x:Null}"
             AttachedToVisualTree="Result_AttachedToVisualTree" LostFocus="Result_LostFocus" TextChanged="Result_TextChanged"/>
             <!--Add a converter to make the display's font size scale with the app size-->
-            <Button x:Name="History" Grid.Row="1" Grid.Column="0" Classes="Number" Content="{Binding buttonContent}" Command="{Binding HistoryToggleCommand}" ZIndex="2" Background="{Binding historyBackground}"/>
-            <Border x:Name="HistoryPanel" IsVisible="{Binding historyOut}" Background="Navy" Opacity="1.0" Margin="5" CornerRadius="15" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="{Binding HistoryDimension}" Grid.RowSpan="{Binding HistoryDimension}" ZIndex="1">
+            <Button x:Name="History" Grid.Row="1" Grid.Column="0" Classes="Number" Content="{Binding buttonContent}" Command="{Binding HistoryToggleCommand}" ZIndex="2" Background="{Binding HistoryButtonBackground}"/>
+            <Border x:Name="HistoryPanel" IsVisible="{Binding historyOut}" Background="Navy" Margin="5" CornerRadius="15" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="{Binding HistoryDimension}" Grid.RowSpan="{Binding HistoryDimension}" ZIndex="1">
                 <DockPanel>
                     <ScrollViewer HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                         <ItemsControl ItemsSource=""><!--Add an observable collection containing the history to this-->
