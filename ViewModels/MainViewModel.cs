@@ -1,4 +1,6 @@
-﻿using CalculatorGUI.Models;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
+using CalculatorGUI.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -8,6 +10,8 @@ namespace CalculatorGUI.ViewModels;
 public partial class MainViewModel : ViewModelBase
 {
     private readonly CalculatorEngine engine = new();
+    public ObservableCollection<Calculation> History {get; set;}= new ObservableCollection<Calculation>();
+
     [ObservableProperty]
     public partial string Input{get; set;} = "";
 
@@ -16,6 +20,13 @@ public partial class MainViewModel : ViewModelBase
     {
         engine.Calculate();
         Input = engine.Input;
+        foreach(Calculation entry in engine.History)
+        {
+            if(History.Contains(entry))
+                continue;
+            else
+                History.Add(entry);
+        }
     }
     [RelayCommand]
     public void AddDigit(string content)
@@ -51,5 +62,5 @@ public partial class MainViewModel : ViewModelBase
     public void HistoryToggle() => historyOut=!historyOut;
     public int HistoryDimension => historyOut ? 5 : 1;
     public string buttonContent => historyOut ? "Close" : "History";
-    public string HistoryButtonBackground => historyOut ? "Black" : "Navy"; //Make theme compatible
+    public string HistoryButtonBackground => historyOut ? "Gold" : "Navy"; //Make theme compatible
 }

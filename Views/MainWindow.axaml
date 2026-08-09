@@ -3,6 +3,7 @@
         xmlns:vm="using:CalculatorGUI.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="using:CalculatorGUI.Models"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="CalculatorGUI.Views.MainWindow"
         x:DataType="vm:MainViewModel"
@@ -24,23 +25,29 @@
 
         <!--Add a converter to make the display's font size scale with the app size-->
         <Grid Name="Buttons" ColumnDefinitions="*, *, *, *" RowDefinitions="*,*, *, *, *, *">
-            <TextBox x:Name="Result" Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalAlignment="Center"
-            Text="{Binding Input, Mode=OneWay}" FontSize="55" IsReadOnly="True"
+            <TextBox x:Name="Result" Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
+            Text="{Binding Input, Mode=OneWay}" FontSize="55" IsReadOnly="True" FontFamily="{StaticResource Digital-7}"
             BorderThickness="0" BorderBrush="Transparent" Padding="0" CaretBrush="{Binding Background, ElementName=View}" FocusAdorner="{x:Null}"
             Focusable="False"/>
             <Button x:Name="History" Grid.Row="1" Grid.Column="0" Classes="Number" Content="{Binding buttonContent}" Command="{Binding HistoryToggleCommand}" ZIndex="2" Background="{Binding HistoryButtonBackground}"/>
             <Border x:Name="HistoryPanel" IsVisible="{Binding historyOut}" Background="Navy" Margin="5" CornerRadius="15" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="{Binding HistoryDimension}" Grid.RowSpan="{Binding HistoryDimension}" ZIndex="1">
-                <DockPanel>
-                    <ScrollViewer HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                        <ItemsControl ItemsSource=""><!--Add an observable collection containing the history to this-->
-                            <ItemsControl.ItemTemplate>
-                                <DataTemplate ><!--Make the history list a viewmodel and bind it here as the datatype-->
-
-                                </DataTemplate>
-                            </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-                    </ScrollViewer>
-                </DockPanel>
+                <ScrollViewer HorizontalAlignment="Center" VerticalContentAlignment="Center">
+                    <ItemsControl ItemsSource="{Binding History}" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="models:Calculation">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <SelectableTextBlock Classes="History">
+                                            <Run Text="{Binding Expression}"/>
+                                            <Run Text="="/>
+                                            <Run Text="{Binding Value}"/>
+                                        </SelectableTextBlock>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
             </Border>
 
 

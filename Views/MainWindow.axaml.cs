@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Avalonia.Controls;
+using Avalonia.Input;
 using CalculatorGUI.Models;
 using CalculatorGUI.ViewModels;
 

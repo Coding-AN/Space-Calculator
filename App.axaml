@@ -9,6 +9,10 @@
         <local:ViewLocator />
     </Application.DataTemplates>
 
+    <Application.Resources>
+        <FontFamily x:Key="Digital-7">avares://CalculatorGUI/Assets/Fonts#Digital-7</FontFamily>
+    </Application.Resources>
+
     <Application.Styles>
         <FluentTheme />
     <!--Add in a theme dictionary to add in support for dark, light, and space themes-->
@@ -24,12 +28,12 @@
             <Setter Property="Background" Value="Navy"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Opacity" Value="1.0"/>
-            <Setter Property="Focusable" Value="False"/>
+            <Setter Property="IsTabStop" Value="True"/>
+            <Setter Property="UseLayoutRounding" Value="True"/>
         </Style>
 
-        <Style Selector="TextBox:focus /template/ Border#PART_BorderElement">
-            <Setter Property="BorderThickness" Value="0" />
-        <Setter Property="BorderBrush" Value="Transparent" />
-    </Style>
+        <Style Selector="SelectableTextBlock.History">
+            <Setter Property="FontSize" Value="30"/>
+        </Style>
     </Application.Styles>
 </Application>
