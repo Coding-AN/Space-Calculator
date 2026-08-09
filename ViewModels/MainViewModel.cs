@@ -1,12 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
+using Avalonia.Media;
 using CalculatorGUI.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace CalculatorGUI.ViewModels;
-
-//Add A Theme Toggle, Calculation History Storage, Negative Numbers, and Unit Conversions
 public partial class MainViewModel : ViewModelBase
 {
     private readonly CalculatorEngine engine = new();
@@ -61,6 +60,6 @@ public partial class MainViewModel : ViewModelBase
     [RelayCommand]
     public void HistoryToggle() => historyOut=!historyOut;
     public int HistoryDimension => historyOut ? 5 : 1;
-    public string buttonContent => historyOut ? "Close" : "History";
-    public string HistoryButtonBackground => historyOut ? "Gold" : "Navy"; //Make theme compatible
+    public string buttonContent => historyOut ? "↺" : "🗏";
+    public string HistoryButtonBackground => historyOut ? "Chocolate" : "Navy"; //Make theme compatible
 }

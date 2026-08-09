@@ -58,8 +58,8 @@ public class CalculatorEngine
     {
         if(Input.Contains("Error") || Input.Contains("NaN"))
             ClearInput();
-        if(!string.IsNullOrEmpty(Input) && Input[^1] != '0')
-            Input+="×(-1)";
+        if(!string.IsNullOrEmpty(Input) && !Input[^1].IsOperand())
+            Input += "×(-1)";
     }
     public void ClearInput()
     {
