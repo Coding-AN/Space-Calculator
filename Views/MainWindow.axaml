@@ -7,6 +7,8 @@
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
         x:Class="CalculatorGUI.Views.MainWindow"
         x:DataType="vm:MainViewModel"
+        MinHeight="390"
+        MinWidth="297"
         Name="View"
         Icon="/Assets/CalcLogo.ico"
         Title="Space Calculator"
@@ -22,14 +24,12 @@
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainViewModel />
     </Design.DataContext>
-
-        <!--Add a converter to make the display's font size scale with the app size-->
         <Grid x:Name="Root" ColumnDefinitions="*, *, *, *" RowDefinitions="*,*, *, *, *, *">
             <Image Source="avares://CalculatorGUI/Assets/Space.jpg" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="6" HorizontalAlignment="Stretch" Stretch="Fill"/>
             <TextBox x:Name="Result" Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
             Text="{Binding Input, Mode=OneWay}" FontSize="60" IsReadOnly="True" FontFamily="{StaticResource Digital-7}"
             Background="Transparent" BorderThickness="0" BorderBrush="Transparent" Padding="0" CaretBrush="{Binding Background, ElementName=View}" FocusAdorner="{x:Null}"
-            Focusable="False" Classes="Display"/>
+            Focusable="False" Classes="Display" MaxLength="16"/>
             <Button x:Name="History" HotKey="H" Grid.Row="1" Grid.Column="0" Classes="Number" Content="{Binding buttonContent}" Command="{Binding HistoryToggleCommand}" ZIndex="3" Background="{Binding HistoryButtonBackground}"/>
             <Border x:Name="HistoryPanel" IsVisible="{Binding historyOut}" Background="Navy" Margin="5" CornerRadius="15" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="{Binding HistoryDimension}" Grid.RowSpan="{Binding HistoryDimension}" ZIndex="2">
                 <ScrollViewer HorizontalAlignment="Center" VerticalContentAlignment="Center">
