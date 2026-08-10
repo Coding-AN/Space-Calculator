@@ -27,22 +27,31 @@ public class CalculatorEngine
     {
         if(Input.Contains("Error") || Input.Contains("NaN"))
             ClearInput();
-        if(string.IsNullOrEmpty(Input) && content is "+" or "×" or "÷")
-            return;
-
-        if(content.Equals("."))
+        if(string.IsNullOrEmpty(Input))
         {
-            if(string.IsNullOrEmpty(Input) || Input[^1].IsOperand())
-                Input += "0";
+            if(content is "+" or "×" or "÷")
+                return;
+            if(content.Equals("."))
+                Input += 0;
+            if(content.Equals("-"))
+            {
+                Input += "-";
+                return;
+            }
         }
-
-        if(content.Equals("-") && string.IsNullOrEmpty(Input))
+        else
         {
-            Input += "-";
-            return;
+            if(content.Equals("."))
+            {
+                if(Input[^1].IsOperand())
+                    Input += "0";
+            }
+            if(content.IsOperand() && Input[^1].IsOperand())
+                Input = Input[..^1];
+
+            if(char.IsDigit(Input[^1]) && content.Equals("(") || !Input.Contains("(") && content.Equals(")")) //Fix range exception
+                return;
         }
-        else if(content.IsOperand() && Input[^1].IsOperand())
-            Input = Input[..^1];
 
         Input += content;
     }
@@ -67,6 +76,43 @@ public class CalculatorEngine
     }
 
     public Collection<Calculation> History {get; private set;} = new();
+
+    public void InsertLastAnswer()
+    {
+        string backup = Input;
+        try
+        {
+                Input += History[History.Count - 1].Value;
+        }
+        catch
+        {
+            Input = backup;
+        }
+    }
+    public void InsertAnswer(Calculation calc)
+    {
+        string backup = Input;
+        try
+        {
+                Input += calc.Value;
+        }
+        catch
+        {
+            Input = backup;
+        }
+    }
+
+    public void RemoveCalculation(Calculation calculation)
+    {
+        foreach(Calculation c in History)
+        {
+            if(c == calculation)
+            {
+                History.Remove(c);
+                break;
+            }
+        }
+    }
 }
 
 public class Calculation
@@ -82,11 +128,6 @@ public class Calculation
     public Calculation(string expression, double value)
     {
         Value = value;
-        foreach(char c in expression)
-        {
-            if(c.IsOperand())
-                expression = expression.Substring(0, expression.IndexOf(c)) + " " + c.ToString() + " " + expression.Substring(expression.IndexOf(c) + 1);
-        }
         Expression = expression;
     }
 }

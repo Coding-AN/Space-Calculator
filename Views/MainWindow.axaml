@@ -8,8 +8,8 @@
         x:Class="CalculatorGUI.Views.MainWindow"
         x:DataType="vm:MainViewModel"
         Name="View"
-        Icon="/Assets/avalonia-logo.ico"
-        Title="CalculatorGUI"
+        Icon="/Assets/CalcLogo.ico"
+        Title="Space Calculator"
         >
 
     <Window.KeyBindings>
@@ -24,24 +24,31 @@
     </Design.DataContext>
 
         <!--Add a converter to make the display's font size scale with the app size-->
-        <Grid Name="Buttons" ColumnDefinitions="*, *, *, *" RowDefinitions="*,*, *, *, *, *">
+        <Grid x:Name="Root" ColumnDefinitions="*, *, *, *" RowDefinitions="*,*, *, *, *, *">
+            <Image Source="avares://CalculatorGUI/Assets/Space.jpg" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Grid.RowSpan="6" HorizontalAlignment="Stretch" Stretch="Fill"/>
             <TextBox x:Name="Result" Grid.Row="0" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Right" VerticalContentAlignment="Center"
             Text="{Binding Input, Mode=OneWay}" FontSize="60" IsReadOnly="True" FontFamily="{StaticResource Digital-7}"
-            BorderThickness="0" BorderBrush="Transparent" Padding="0" CaretBrush="{Binding Background, ElementName=View}" FocusAdorner="{x:Null}"
-            Focusable="False"/>
-            <Button x:Name="History" Grid.Row="1" Grid.Column="0" Classes="Number" Content="{Binding buttonContent}" Command="{Binding HistoryToggleCommand}" ZIndex="2" Background="{Binding HistoryButtonBackground}"/>
-            <Border x:Name="HistoryPanel" IsVisible="{Binding historyOut}" Background="Navy" Margin="5" CornerRadius="15" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="{Binding HistoryDimension}" Grid.RowSpan="{Binding HistoryDimension}" ZIndex="1">
+            Background="Transparent" BorderThickness="0" BorderBrush="Transparent" Padding="0" CaretBrush="{Binding Background, ElementName=View}" FocusAdorner="{x:Null}"
+            Focusable="False" Classes="Display"/>
+            <Button x:Name="History" Grid.Row="1" Grid.Column="0" Classes="Number" Content="{Binding buttonContent}" Command="{Binding HistoryToggleCommand}" ZIndex="3" Background="{Binding HistoryButtonBackground}"/>
+            <Border x:Name="HistoryPanel" IsVisible="{Binding historyOut}" Background="Navy" Margin="5" CornerRadius="15" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="{Binding HistoryDimension}" Grid.RowSpan="{Binding HistoryDimension}" ZIndex="2">
                 <ScrollViewer HorizontalAlignment="Center" VerticalContentAlignment="Center">
                     <ItemsControl ItemsSource="{Binding History}" HorizontalAlignment="Center" VerticalAlignment="Center">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate DataType="models:Calculation">
                                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <SelectableTextBlock Classes="History">
+                                        <Button x:Name="Delete" Command="{Binding #Root.((vm:MainViewModel)DataContext).RemoveCalculationCommand}" CommandParameter="{Binding Path=.}" Background="Chocolate">
+                                            <Image Source="avares://CalculatorGUI/Assets/3515498.png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="{Binding FontSize, ElementName=Calculation}"/>
+                                        </Button>
+                                        <SelectableTextBlock x:Name="Calculation" Classes="History">
                                             <Run Text="{Binding Expression}"/>
                                             <Run Text="="/> 
                                             <Run Text="{Binding Value}"/>
                                         </SelectableTextBlock>
+                                        <Button x:Name="Copy" Command="{Binding #Root((vm:MainViewModel)DataContext).InsertAnswerCommand}" CommandParameter="{Binding Path=.}" Background="Chocolate">
+                                            <Image Source="avares://CalculatorGUI/Assets/copy.png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="{Binding FontSize, ElementName=Calculation}"/>
+                                        </Button>
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>
@@ -52,8 +59,8 @@
 
 
             <Button HotKey="Back" Grid.Row="1" Grid.Column="1" Classes="Number" Content="⌫" Command="{Binding RemoveDigitCommand}"/>
-            <Button HotKey="Delete" Grid.Row="1" Grid.Column="2" Classes="Number" Content="C" Command="{Binding ClearInputCommand}"/>
-            <Button Grid.Row="1" Grid.Column="3" Classes="Number" Content="(+/-)" Command="{Binding MakeNegativeCommand}"/>
+            <Button HotKey="C" Grid.Row="1" Grid.Column="2" Classes="Number" Content="C" Command="{Binding ClearInputCommand}"/>
+            <Button HotKey="Shift + A" Grid.Row="1" Grid.Column="3" Classes="Number" Content="{Binding advancedContent}" Command="{Binding SwapAdvancedCommand}"/>
 
             <Button HotKey="D1" Grid.Row="2" Grid.Column="0" Classes="Number" Content="1" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
             <Button HotKey="D2" Grid.Row="2" Grid.Column="1" Classes="Number" Content="2" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
@@ -68,10 +75,16 @@
             <Button HotKey="D0" Grid.Row="5" Grid.Column="1" Classes="Number" Content="0" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
 
             <Button Grid.Row="5" Grid.Column="2" Classes="Number" Content="=" Command="{Binding CalculateCommand}"/>
-            <Button HotKey="Shift + OemPlus" Grid.Row="2" Grid.Column="3" Classes="Number" Content="+" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
-            <Button HotKey="OemMinus" Grid.Row="3" Grid.Column="3" Classes="Number" Content="-" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
-            <Button HotKey="Shift + D8" Grid.Row="4" Grid.Column="3" Classes="Number" Content="×" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
-            <Button HotKey="OemQuestion" Grid.Row="5" Grid.Column="3" Classes="Number" Content="÷" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+
+            <Button ZIndex="{Binding AdvancedZDown}" IsVisible="{Binding AdvancedZDown}" HotKey="Shift + OemPlus" Grid.Row="2" Grid.Column="3" Classes="Number" Content="+" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button ZIndex="{Binding AdvancedZDown}" IsVisible="{Binding AdvancedZDown}" HotKey="OemMinus" Grid.Row="3" Grid.Column="3" Classes="Number" Content="-" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button ZIndex="{Binding AdvancedZDown}" IsVisible="{Binding AdvancedZDown}" HotKey="Shift + D8" Grid.Row="4" Grid.Column="3" Classes="Number" Content="×" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button ZIndex="{Binding AdvancedZDown}" IsVisible="{Binding AdvancedZDown}" HotKey="OemQuestion" Grid.Row="5" Grid.Column="3" Classes="Number" Content="÷" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+
+            <Button ZIndex="{Binding AdvancedZ}" IsVisible="{Binding AdvancedZ}" HotKey="Shift + OemMinus" Grid.Row="2" Grid.Column="3" Classes="Number" Content="(+/-)" Command="{Binding MakeNegativeCommand}"/>
+            <Button ZIndex="{Binding AdvancedZ}" IsVisible="{Binding AdvancedZ}" HotKey="Shift + D9" Grid.Row="3" Grid.Column="3" Classes="Number" Content="(" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button ZIndex="{Binding AdvancedZ}" IsVisible="{Binding AdvancedZ}" HotKey="Shift + D0" Grid.Row="4" Grid.Column="3" Classes="Number" Content=")" Command="{Binding AddDigitCommand}" CommandParameter="{Binding Content, RelativeSource={RelativeSource Self}}"/>
+            <Button ZIndex="{Binding AdvancedZ}" IsVisible="{Binding AdvancedZ}" HotKey="A" Grid.Row="5" Grid.Column="3" Classes="Number" Content="Ans" Command="{Binding InsertLastAnswerCommand}"/>
         </Grid>
 
 </Window>
