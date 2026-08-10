@@ -30,7 +30,7 @@
             Text="{Binding Input, Mode=OneWay}" FontSize="60" IsReadOnly="True" FontFamily="{StaticResource Digital-7}"
             Background="Transparent" BorderThickness="0" BorderBrush="Transparent" Padding="0" CaretBrush="{Binding Background, ElementName=View}" FocusAdorner="{x:Null}"
             Focusable="False" Classes="Display"/>
-            <Button x:Name="History" Grid.Row="1" Grid.Column="0" Classes="Number" Content="{Binding buttonContent}" Command="{Binding HistoryToggleCommand}" ZIndex="3" Background="{Binding HistoryButtonBackground}"/>
+            <Button x:Name="History" HotKey="H" Grid.Row="1" Grid.Column="0" Classes="Number" Content="{Binding buttonContent}" Command="{Binding HistoryToggleCommand}" ZIndex="3" Background="{Binding HistoryButtonBackground}"/>
             <Border x:Name="HistoryPanel" IsVisible="{Binding historyOut}" Background="Navy" Margin="5" CornerRadius="15" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="{Binding HistoryDimension}" Grid.RowSpan="{Binding HistoryDimension}" ZIndex="2">
                 <ScrollViewer HorizontalAlignment="Center" VerticalContentAlignment="Center">
                     <ItemsControl ItemsSource="{Binding History}" HorizontalAlignment="Center" VerticalAlignment="Center">
