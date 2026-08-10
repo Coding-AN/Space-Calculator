@@ -25,35 +25,37 @@ public class CalculatorEngine
     }
     public void AddDigit(string content)
     {
-        if(Input.Contains("Error") || Input.Contains("NaN"))
-            ClearInput();
-        if(string.IsNullOrEmpty(Input))
+        if(Input.Length < 16)
         {
-            if(content is "+" or "×" or "÷")
-                return;
-            if(content.Equals("."))
-                Input += 0;
-            if(content.Equals("-"))
+            if(Input.Contains("Error") || Input.Contains("NaN"))
+                ClearInput();
+            if(string.IsNullOrEmpty(Input))
             {
-                Input += "-";
-                return;
+                if(content is "+" or "×" or "÷")
+                    return;
+                if(content.Equals("."))
+                    Input += 0;
+                if(content.Equals("-"))
+                {
+                    Input += "-";
+                    return;
+                }
             }
-        }
-        else
-        {
-            if(content.Equals("."))
+            else
             {
-                if(Input[^1].IsOperand())
-                    Input += "0";
+                if(content.Equals("."))
+                {
+                    if(Input[^1].IsOperand())
+                        Input += "0";
+                }
+                if(content.IsOperand() && Input[^1].IsOperand())
+                    Input = Input[..^1];
+
+                if(char.IsDigit(Input[^1]) && content.Equals("(") || !Input.Contains("(") && content.Equals(")")) //Fix range exception
+                    return;
             }
-            if(content.IsOperand() && Input[^1].IsOperand())
-                Input = Input[..^1];
-
-            if(char.IsDigit(Input[^1]) && content.Equals("(") || !Input.Contains("(") && content.Equals(")")) //Fix range exception
-                return;
+            Input += content;
         }
-
-        Input += content;
     }
     public void RemoveDigit()
     {

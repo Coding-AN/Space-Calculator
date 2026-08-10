@@ -24,6 +24,8 @@ public partial class App : Application
         }
 
         base.OnFrameworkInitializationCompleted();
-        this.AttachDevTools();
+        #if DEBUG
+            this.AttachDevTools();
+        #endif
     }
 }
