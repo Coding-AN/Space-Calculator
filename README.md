@@ -1,8 +1,10 @@
 ![Logo](https://github.com/Aario-Wii/Space-Calculator/blob/main/Assets/CalcLogo.ico?raw=true)
 # The Space Calculator
-A Space-themed Calculator for Windows, MacOS, and Linux
+A Space-themed Calculator made in C# for Windows, MacOS, and Linux.\
+Download it [**Here**](https://github.com/Aario-Wii/Space-Calculator/releases).
 ## How to use
-Click or tap on the Buttons use them.\
+<img width="343" height="373" alt="20260810-1034-39 6573447" src="https://github.com/user-attachments/assets/f1bd5b18-1df0-4fff-805c-b91f7d4c60d8" /> \
+Click or tap on the Buttons use them. The Space Calculator functions just like a regular Calculator\
 Hotkeys:
 1. H: Toggle History
 2. C: Clear
@@ -10,3 +12,21 @@ Hotkeys:
 4. Shift + -: Make Negative or Positive
 5. A: Enter last answer into the display
 6. Enter: Perform the Calculation
+## Getting Started
+1. Download the release binary corresponding to your Operating System **(All dependencies are bundled in)**
+2. Unzip the Project
+3. Launch the Executable
+## Features
+1. Contains the operations of a full basic calculator
+2. Has support for negative numbers, parentheses, and the last answer calculated
+3. Stores history, with options to delete entries, copy to clipboard, and input an entries value into the calculator
+## How values are calculated
+Rather than extracting numbers and operators from a string and calculating an answer, a string containing the expression is passed into a DataTable, which computes the answer; this approach was used in order to support more complex expressions and avoid calculating everything manually with switches and loops.
+## Credits
+* <a href="https://www.flaticon.com/free-icons/paper" title="paper icons">Paper icons created by Gregor Cresnar - Flaticon</a>
+* Space.png was designed by Magnific (www.magnific.com)
+* 3515498.png is from <a href="https://www.vecteezy.com/free-vector/recycle-bin">Recycle Bin Vectors by Vecteezy</a>
+* The font Digital-7 was created by Alexander Sizenko.
+
+---
+**This project was made as a part of Hack Club Stardance**
