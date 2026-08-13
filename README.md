@@ -26,7 +26,7 @@ Hotkeys:
 5. Go to Privacy and Security in Settings, scroll down, and click Open Anyway
 ## Features
 1. Contains the operations of a full basic calculator
-2. Has support for negative numbers, parentheses, and the last answer calculated
+2. Has support for negative numbers, parentheses, and grabbing the last answer calculated
 3. Stores history, with options to delete entries, copy to clipboard, and input an entries value into the calculator
 ## How values are calculated
 Rather than extracting numbers and operators from a string and calculating an answer, a string containing the expression is passed into a DataTable, which computes the answer; this approach was used in order to support more complex expressions and avoid calculating everything manually with switches and loops.
@@ -35,6 +35,9 @@ Rather than extracting numbers and operators from a string and calculating an an
 * Space.png was designed by Magnific (www.magnific.com)
 * 3515498.png is from <a href="https://www.vecteezy.com/free-vector/recycle-bin">Recycle Bin Vectors by Vecteezy</a>
 * The font Digital-7 was created by Alexander Sizenko.
+### AI Usage
+AI was used to help debug and confer with in order to learn how to solve problems\
+**No code in this project was AI Generated**
 
 ---
 **This project was made as a part of Hack Club Stardance**
