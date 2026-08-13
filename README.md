@@ -35,6 +35,7 @@ Rather than extracting numbers and operators from a string and calculating an an
 * Space.png was designed by Magnific (www.magnific.com)
 * 3515498.png is from <a href="https://www.vecteezy.com/free-vector/recycle-bin">Recycle Bin Vectors by Vecteezy</a>
 * The font Digital-7 was created by Alexander Sizenko.
+>The tool [ProDiagnostics](https://github.com/wieslawsoltes/ProDataGrid) was used to debug during development
 ### AI Usage
 AI was used to help debug and confer with in order to learn how to solve problems\
 **No code in this project was AI Generated**
