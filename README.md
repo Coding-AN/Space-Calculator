@@ -16,13 +16,14 @@ Hotkeys:
 1. Download the release binary corresponding to your Operating System **(All dependencies are bundled in)**
 2. Unzip the Project
 3. Launch the Executable
-### How to get past Gatekeeper on MacOS
+### How to get past Gatekeeper on MacOS (Only have to do the first time you open the file)
 1. Go to settings and search for "developer"
 2.  Select "Allow applications to use developer tools" and make sure that Terminal is enabled
     - If Terminal isn't there, press the plus button and add it
 3. Open terminal, type in "chmod +x", and drag in the file from the zip that says CalculatorGUI inside
     - The terminal window should now say "chmod + x 'your-path-to-CalculatorGUI'"
-4. Enter the command, and double click the CalculatorGUI file from Finder to open it.
+4. Enter the command, then double click the CalculatorGUI file from Finder and click "Done" in the popup
+5. Go to Privacy and Security in Settings, scroll down, and click Open Anyway
 ## Features
 1. Contains the operations of a full basic calculator
 2. Has support for negative numbers, parentheses, and the last answer calculated
